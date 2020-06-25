@@ -9,6 +9,11 @@ uClient.close()
 page_soup = BSoup(page_raw_html, "html.parser")
 containers = page_soup.findAll("div", {"class": "item-container"})
 
+filename = "products.csv"
+f = open(filename, "W")
+
+headers = "brand, product_name, shipping"
+f.write(headers)
 
 for container in containers:
     #brand = container.div.div.a.img["title"]
@@ -24,3 +29,5 @@ for container in containers:
     print("brand: ", product_brand)
     print("product_name: ", product_name)
     print("product_shipping: ", product_shipping)
+
+    f.write(product_brand + "," + product_name.replace(",", "|") + "," + product_shipping + "\n")
